@@ -1,0 +1,5 @@
+{
+  "seeds": "0,1,2,3,4",
+  "device": 0,
+  "out_dir": "wget_rescue_grid"
+}

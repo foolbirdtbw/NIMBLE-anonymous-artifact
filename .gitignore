@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Large/generated experiment artifacts
+checkpoints/
+embedding_cache/
+*.pt
+*.pth
+*.npz
+*.pkl
+*.log
+
+# Datasets are not redistributed in this anonymous artifact.
+data/
+
+# Local/editor files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+

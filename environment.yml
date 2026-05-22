@@ -1,0 +1,21 @@
+name: nimble-review
+channels:
+  - pytorch
+  - dglteam
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - numpy
+  - pandas
+  - scikit-learn
+  - networkx
+  - tqdm
+  - matplotlib
+  - pyyaml
+  - pip
+  - pip:
+      - xxhash
+      - torch==1.13.1
+      - dgl==0.9.1
+

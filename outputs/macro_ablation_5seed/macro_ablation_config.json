@@ -1,0 +1,18 @@
+{
+  "datasets": [
+    "streamspot",
+    "wget",
+    "trace"
+  ],
+  "variants": [
+    "full",
+    "no_denoising",
+    "no_graphsage",
+    "baseline"
+  ],
+  "seeds": "0,1,2,3,4",
+  "device": 0,
+  "out_dir": "macro_ablation_5seed",
+  "edge_recon": false,
+  "force_train": false
+}

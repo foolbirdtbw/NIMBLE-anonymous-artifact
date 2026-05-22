@@ -1,0 +1,12 @@
+{
+  "experiment": "edge_recon",
+  "datasets": [
+    "streamspot",
+    "wget",
+    "trace"
+  ],
+  "seeds": "0,1,2,3,4",
+  "device": 0,
+  "out_dir": "p2_experiments",
+  "force_train": false
+}

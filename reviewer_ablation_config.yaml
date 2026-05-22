@@ -1,0 +1,223 @@
+# 消融实验配置文件
+# 使用方法: python run_ablation_study.py --config ablation_config.yaml
+
+# 实验基本配置
+experiment:
+  name: "GraphSAGE and Denoising Ablation Study"
+  description: "验证GraphSAGE和Denoising的有效性"
+  timestamp: true  # 是否在输出文件名中添加时间戳
+
+# 数据集配置
+datasets:
+  - trace
+  # - streamspot
+  # - wget
+
+# 模型变体配置
+variants:
+  full:
+    name: "Full Model (GraphSAGE + Denoising)"
+    use_graphsage: true
+    use_denoising: true
+    description: "完整模型：使用GraphSAGE编码器和Denoising"
+    enabled: true
+
+  no_denoising:
+    name: "No Denoising (GraphSAGE only)"
+    use_graphsage: true
+    use_denoising: false
+    description: "移除Denoising：仅使用GraphSAGE编码器"
+    enabled: true
+
+  no_graphsage:
+    name: "No GraphSAGE (GCN + Denoising)"
+    use_graphsage: false
+    use_denoising: true
+    description: "移除GraphSAGE：使用简单GCN替代 + Denoising"
+    enabled: true
+
+  baseline:
+    name: "Baseline (GCN only)"
+    use_graphsage: false
+    use_denoising: false
+    description: "基础模型：仅使用简单GCN"
+    enabled: true
+
+# 训练配置
+training:
+  # 是否跳过已存在的检查点
+  skip_existing_checkpoints: true
+  
+  # 是否保存检查点
+  save_checkpoints: true
+  
+  # 检查点保存目录
+  checkpoint_dir: "ablation_study/checkpoints"
+  
+  # 最大训练轮数（如果为null则使用默认值）
+  max_epochs: null
+  
+  # 批大小
+  batch_size: null
+  
+  # 学习率
+  learning_rate: null
+
+# 评估配置
+evaluation:
+  # 评估指标
+  metrics:
+    - auc
+    - f1
+    - precision
+    - recall
+    - accuracy
+    - fpr
+  
+  # 评估结果保存目录
+  eval_metrics_dir: "ablation_study/eval_metrics"
+  
+  # 是否计算混淆矩阵
+  compute_confusion_matrix: true
+
+# 输出配置
+output:
+  # 基础输出目录
+  base_dir: "ablation_study"
+  
+  # 是否生成对比CSV
+  generate_comparison_csv: true
+  
+  # 是否生成分析报告
+  generate_analysis_report: true
+  
+  # 是否保存详细结果（pickle格式）
+  save_detailed_results: true
+  
+  # 是否生成可视化图表
+  generate_visualizations: true
+  
+  # 可视化输出目录
+  visualization_dir: "ablation_study/visualizations"
+
+# 分析配置
+analysis:
+  # 性能提升的显著性阈值（%）
+  significance_threshold: 2.0
+  
+  # 是否生成详细的对比分析
+  detailed_comparison: true
+  
+  # 是否生成贡献度分析
+  contribution_analysis: true
+
+# 日志配置
+logging:
+  # 日志级别: DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  
+  # 是否保存日志文件
+  save_log: true
+  
+  # 日志文件路径
+  log_file: "ablation_study/ablation_experiment.log"
+
+# 硬件配置
+hardware:
+  # 是否使用GPU
+  use_gpu: true
+  
+  # GPU设备ID（-1表示CPU）
+  device_id: 0
+  
+  # 是否记录内存使用
+  track_memory: true
+  
+  # 是否记录GPU使用
+  track_gpu: true
+
+# 高级配置
+advanced:
+  # 是否启用并行处理
+  parallel: false
+  
+  # 并行进程数
+  num_processes: 4
+  
+  # 随机种子
+  random_seed: 42
+  
+  # 是否启用梯度检查
+  gradient_checkpointing: false
+  
+  # 是否启用混合精度训练
+  mixed_precision: false
+
+# 对比分析配置
+comparison:
+  # 要对比的指标
+  primary_metric: "auc"
+  
+  # 次要指标
+  secondary_metrics:
+    - f1
+    - precision
+    - recall
+  
+  # 是否生成排名表
+  generate_ranking: true
+  
+  # 是否生成性能提升分析
+  generate_improvement_analysis: true
+
+# 可视化配置
+visualization:
+  # 图表风格
+  style: "seaborn"
+  
+  # 图表DPI
+  dpi: 300
+  
+  # 图表格式
+  format: "png"
+  
+  # 是否生成柱状图
+  generate_bar_charts: true
+  
+  # 是否生成热力图
+  generate_heatmaps: true
+  
+  # 是否生成折线图
+  generate_line_charts: false
+  
+  # 是否生成性能提升百分比图
+  generate_improvement_charts: true
+  
+  # 是否生成效率对比图
+  generate_efficiency_charts: true
+
+# 报告配置
+report:
+  # 报告格式: txt, md, html
+  format: "txt"
+  
+  # 是否包含详细的统计信息
+  include_statistics: true
+  
+  # 是否包含建议
+  include_recommendations: true
+  
+  # 是否包含可视化图表链接
+  include_chart_links: true
+
+# 实验重复配置
+repetition:
+  # 是否重复运行实验
+  enabled: false
+  
+  # 重复次数
+  num_runs: 3
+  
+  # 是否计算平均值和标准差
+  compute_statistics: true
+
