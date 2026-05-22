@@ -1,0 +1,18 @@
+\begin{tabular}{llllllllllll}
+\toprule
+Dataset & Representation & Corruption & Encoder & Auxiliary objective & Pooling & Detector & AUC & Precision & Recall & F1 & FPR \\
+\midrule
+streamspot & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & global & iforest & 97.55 $\pm$ 2.05 & 96.74 $\pm$ 1.70 & 100.00 $\pm$ 0.00 & 98.33 $\pm$ 0.88 & 3.40 $\pm$ 1.82 \\
+streamspot & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & global & knn & 99.98 $\pm$ 0.02 & 99.60 $\pm$ 0.54 & 100.00 $\pm$ 0.00 & 99.80 $\pm$ 0.27 & 0.40 $\pm$ 0.55 \\
+streamspot & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & global & iforest & 98.70 $\pm$ 1.07 & 96.91 $\pm$ 1.22 & 100.00 $\pm$ 0.00 & 98.43 $\pm$ 0.63 & 3.20 $\pm$ 1.30 \\
+streamspot & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & global & knn & 99.99 $\pm$ 0.02 & 99.80 $\pm$ 0.44 & 100.00 $\pm$ 0.00 & 99.90 $\pm$ 0.22 & 0.20 $\pm$ 0.45 \\
+trace & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & node-level & iforest & 99.21 $\pm$ 0.58 & 93.50 $\pm$ 4.44 & 99.98 $\pm$ 0.01 & 96.59 $\pm$ 2.41 & 0.79 $\pm$ 0.58 \\
+trace & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & node-level & knn & 99.99 $\pm$ 0.00 & 99.90 $\pm$ 0.04 & 99.97 $\pm$ 0.00 & 99.93 $\pm$ 0.02 & 0.01 $\pm$ 0.00 \\
+trace & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & node-level & iforest & 99.83 $\pm$ 0.05 & 98.49 $\pm$ 0.42 & 99.97 $\pm$ 0.00 & 99.22 $\pm$ 0.21 & 0.17 $\pm$ 0.05 \\
+trace & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & node-level & knn & 99.96 $\pm$ 0.01 & 99.68 $\pm$ 0.11 & 99.97 $\pm$ 0.00 & 99.82 $\pm$ 0.06 & 0.04 $\pm$ 0.01 \\
+wget & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & type-aware & iforest & 87.55 $\pm$ 2.88 & 89.33 $\pm$ 11.93 & 79.20 $\pm$ 8.20 & 83.03 $\pm$ 2.80 & 12.00 $\pm$ 16.25 \\
+wget & MAGIC-style masked GAE & mask token & GCNII & attribute + edge reconstruction & type-aware & knn & 97.12 $\pm$ 0.77 & 88.56 $\pm$ 3.78 & 96.80 $\pm$ 5.22 & 92.35 $\pm$ 1.98 & 12.80 $\pm$ 5.22 \\
+wget & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & type-aware & iforest & 88.00 $\pm$ 4.04 & 84.40 $\pm$ 13.46 & 86.40 $\pm$ 6.07 & 84.50 $\pm$ 4.81 & 19.20 $\pm$ 19.88 \\
+wget & NIMBLE & Gaussian feature corruption & GraphSAGE & attribute denoising + weighted edge reconstruction & type-aware & knn & 96.90 $\pm$ 0.97 & 89.68 $\pm$ 3.71 & 96.00 $\pm$ 4.00 & 92.66 $\pm$ 2.56 & 11.20 $\pm$ 4.38 \\
+\bottomrule
+\end{tabular}

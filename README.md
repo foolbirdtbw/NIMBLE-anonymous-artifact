@@ -17,6 +17,7 @@ The package intentionally excludes author-identifying manuscript files, author b
 │   ├── reviewer_ablations/    # Gaussian vs mask vs no corruption; pooling checks
 │   ├── macro_ablation_5seed/  # five-seed macro-architecture ablation
 │   ├── p2_experiments/        # Trace corruption and edge-reconstruction checks
+│   ├── magic_matched_compute/ # MAGIC-style vs NIMBLE matched-compute ablation
 │   ├── trace_controls/        # Trace multiseed, iForest, cycle-vs-DAG checks
 │   ├── trace_bqts/            # Trace BQTS precision sweeps
 │   ├── scheme_b/              # revised default-configuration checks
@@ -35,12 +36,13 @@ Only model modules required by the included experiments are kept:
 
 - `autoencoder_graphsage_denosing.py`
 - `autoencoder_graphsage_denosing_ablation.py`
+- `autoencoder.py` (MAGIC-style masked graph autoencoder path used only for the matched-compute ablation)
 - `graphsage.py`
 - `gat.py`, `gin.py`, `gcnii.py`
 - `loss_func.py`
 - `train.py`
 
-Unused development modules such as the legacy autoencoder wrapper, graph transformer, PNA, MLP-only helper, and standalone evaluation script are not included.
+Unused development modules such as the graph transformer, PNA, MLP-only helper, and standalone evaluation script are not included.
 
 ## Environment
 
@@ -168,6 +170,21 @@ python -m experiments.tune_trace_bqts_precision \
   --out-dir outputs/trace_bqts_rerun
 ```
 
+### 6. MAGIC-Style Matched-Compute Ablation
+
+This experiment compares the MAGIC-style masked graph autoencoder path against NIMBLE under the same datasets, seeds, training budget, pooling granularity, and downstream detector choices. It is an internal matched-compute ablation, not a reproduction of the published MAGIC authors' private run artifacts.
+
+```bash
+python -m experiments.run_magic_matched_compute \
+  --datasets streamspot wget trace \
+  --seeds 0,1,2,3,4 \
+  --pipelines magic_style nimble \
+  --detectors iforest knn \
+  --batch-epochs 5 \
+  --trace-epochs 50 \
+  --out-dir outputs/magic_matched_compute_rerun
+```
+
 ## Output Files
 
 The `outputs/` directory contains compact files already generated for the revision:
@@ -186,3 +203,5 @@ The included outputs support audit of NIMBLE-side experiments and robustness che
 The BQTS experiments intentionally separate benign fitting, benign-only threshold selection, and held-out evaluation. Label-tuned rows are reported as upper-bound references, not as label-free deployment protocols.
 
 The reviewer-requested ablations show that the best corruption and pooling settings are dataset-dependent. The revised manuscript therefore treats Gaussian corruption and edge reconstruction as practical configuration choices/regularizers rather than universal dominance claims.
+
+The MAGIC-style matched-compute ablation uses the repository's masked-autoencoder path to isolate representation and detector effects under a shared codebase. It should be interpreted as a controlled internal ablation rather than as an official MAGIC reproduction.

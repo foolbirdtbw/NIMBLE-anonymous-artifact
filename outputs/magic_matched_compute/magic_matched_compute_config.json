@@ -1,0 +1,21 @@
+{
+  "datasets": [
+    "streamspot",
+    "wget",
+    "trace"
+  ],
+  "pipelines": [
+    "magic_style",
+    "nimble"
+  ],
+  "detectors": [
+    "iforest",
+    "knn"
+  ],
+  "seeds": "0,1,2,3,4",
+  "device": 0,
+  "out_dir": "magic_matched_compute",
+  "batch_epochs": 5,
+  "trace_epochs": 50,
+  "force_train": false
+}
