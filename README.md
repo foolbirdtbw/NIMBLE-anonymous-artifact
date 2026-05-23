@@ -21,7 +21,8 @@ The package intentionally excludes author-identifying manuscript files, author b
 │   ├── trace_controls/        # Trace multiseed, iForest, cycle-vs-DAG checks
 │   ├── trace_bqts/            # Trace BQTS precision sweeps
 │   ├── scheme_b/              # revised default-configuration checks
-│   └── wget_rescue/           # Wget robustness/rescue sweeps
+│   ├── wget_rescue/           # Wget label-tuned robustness/rescue sweeps
+│   └── wget_bqts_stress/      # exploratory Wget BQTS parameter/stress sweep
 ├── reviewer_ablation_config.yaml
 ├── environment.yml
 ├── requirements.txt
@@ -185,6 +186,29 @@ python -m experiments.run_magic_matched_compute \
   --out-dir outputs/magic_matched_compute_rerun
 ```
 
+### 7. Exploratory Wget BQTS Stress Sweep
+
+This stress sweep probes whether Wget's weak default BQTS result is caused by the representation itself or by deployment-configuration choices. For every candidate, the threshold is still selected only from held-out benign validation scores. Attack labels are used only after threshold fixation for reporting and post-hoc comparison among candidates, so this should not be interpreted as a pre-registered default deployment setting.
+
+```bash
+python -m experiments.run_wget_bqts_sweep \
+  --out-dir outputs/wget_bqts_stress_rerun \
+  --device 0 \
+  --variants "gaussian_edge0,mask_edge0" \
+  --pooling "global" \
+  --fit-counts "95,100,105" \
+  --val-fractions "0.55,0.60,0.65" \
+  --quantiles "0.78,0.80,0.82,0.85,0.88,0.90" \
+  --scalers "standard,robust" \
+  --pca-dims "24,32,40,48" \
+  --detectors "iforest,knn" \
+  --iforest-estimators "200,300,500" \
+  --iforest-max-samples "auto,1.0" \
+  --iforest-max-features "0.75,1.0" \
+  --iforest-bootstrap "false" \
+  --knn-k "5,10,15"
+```
+
 ## Output Files
 
 The `outputs/` directory contains compact files already generated for the revision:
@@ -201,6 +225,8 @@ Large rerun byproducts such as checkpoints, `.npz` prediction files, embedding c
 The included outputs support audit of NIMBLE-side experiments and robustness checks on StreamSpot, Wget, and DARPA E3 Trace. They do not reproduce every cited baseline row from prior literature because third-party baseline code and per-instance baseline predictions are not included.
 
 The BQTS experiments intentionally separate benign fitting, benign-only threshold selection, and held-out evaluation. Label-tuned rows are reported as upper-bound references, not as label-free deployment protocols.
+
+The Wget BQTS stress sweep is exploratory. It shows that Wget can recover strong F1 under benign-quantile thresholding after changing pooling, preprocessing, corruption mode, and detector settings, but the sweep-level candidate selection is post-hoc and therefore should be reported as a robustness/stress analysis rather than as the main label-free deployment result.
 
 The reviewer-requested ablations show that the best corruption and pooling settings are dataset-dependent. The revised manuscript therefore treats Gaussian corruption and edge reconstruction as practical configuration choices/regularizers rather than universal dominance claims.
 
